@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GymFit - Экипировка для Зала</title>
+    <!-- Подключаем Tailwind CSS для стилизации -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Подключаем шрифт Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Базовый шрифт для всего сайта */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Этот трюк (pt-20 -mt-16) нужен, чтобы при переходе по якорю
+          заголовок секции не "прятался" под приклеенной навигацией.
+          pt-20 (padding-top) создает место, -mt-16 (negative margin-top) "поднимает" секцию, 
+          чтобы якорь сработал в нужной точке.
+        */
+        .page-section {
+            padding-top: 5rem; /* 80px */
+            margin-top: -4rem; /* -64px */
+        }
+        /* Для первой секции это не нужно */
+        #home {
+            padding-top: 1.5rem; /* 24px */
+            margin-top: 0;
+        }
+        
+        /* РЕАЛИЗАЦИЯ ПУНКТА 1.5 (полностью):
+           Этот класс .active-nav-link будет добавлен с помощью JavaScript
+           к ссылке в верхнем меню, которая соответствует
+           текущей прокрученной секции.
+        */
+        .active-nav-link {
+            text-decoration: underline;
+            text-decoration-color: #2563eb; /* Tailwind blue-600 */
+            text-decoration-thickness: 3px;
+            text-underline-offset: 6px;
+            /* !important нужен, чтобы переопределить базовый 
+              класс text-gray-700 из Tailwind
+            */
+            color: #2563eb !important; 
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+    <!-- 
+      ТРЕБОВАНИЕ 1: Единая навигационная часть 
+      - position: sticky; top: 0; - делает ее "прилипающей" к верху экрана при прокрутке.
+    -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            
+            <!-- 1.1: Графическая гиперссылка (на главную) -->
+            <a href="#home" title="На главную">
+                <img src="https://placehold.co/120x40/1f2937/ffffff?text=GymFit" alt="Логотип GymFit" class="h-10 rounded">
+            </a>
+            
+            <div class="space-x-4 md:space-x-6">
+                <!-- 1.1: Текстовые гиперссылки (открываются в текущем окне) -->
+                <a href="#home" class="text-gray-700 hover:text-blue-600 font-medium">Главная</a>
+                <a href="#catalog" class="text-gray-700 hover:text-blue-600">Каталог</a>
+                <a href="#about" class="text-gray-700 hover:text-blue-600">О нас</a>
+                <a href="#contact" class="text-gray-700 hover:text-blue-600">Контакты</a>
+                
+                <!-- 1.2: Ссылка на внутренний фрагмент (закладку) -->
+                <a href="#catalog-table" class="hidden md:inline text-sm text-green-600 hover:text-green-800" title="Перейти к сравнительной таблице">(К таблице)</a>
+                
+                <!-- 1.3: Ссылка на внешний сайт (открывается в новом окне) -->
+                
+                </a>
+            </div>
+        </div>
+        <!-- 
+          ПРИМЕЧАНИЕ К ТРЕБОВАНИЮ 1.5 (Выделение текущего положения):
+          Реализация переделана. Теперь, с помощью небольшого JavaScript-кода
+          в конце файла, пункт меню (ссылка) в этой навигационной панели
+          будет автоматически подсвечиваться, когда вы докручиваете до 
+          соответствующей секции.
+        -->
+    </nav>
+
+    <!-- Основное содержимое сайта -->
+    <main class="container mx-auto p-6">
+
+        <!-- СТРАНИЦА 1: Главная -->
+        <section id="home" class="page-section text-center">
+            <h1 class="text-4xl font-bold mb-4 text-gray-800">Добро пожаловать в GymFit!</h1>
+            <p class="text-lg text-gray-600 mb-8">Ваш надежный поставщик профессиональной экипировки для тренажерных залов.</p>
+            <img src="https://placehold.co/1200x400/333/ffffff?text=Оборудование+для+зала" alt="Баннер с оборудованием для зала" class="w-full rounded-lg shadow-xl">
+        </section>
+
+        <!-- СТРАНИЦА 2: Каталог -->
+        <section id="catalog" class="page-section">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">Каталог оборудования</h2>
+
+            <!-- 2.1: Навигация внутри страницы -->
+            <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 rounded-lg mb-8" role="alert">
+                <h3 class="font-semibold mb-2">Быстрая навигация по каталогу:</h3>
+                <a href="#dumbbells" class="hover:underline">Гантели и Штанги</a> |
+                <a href="#benches" class="hover:underline">Скамьи и Стойки</a> |
+                <a href="#catalog-table" class="hover:underline">Сравнительная таблица</a> |
+                <a href="#home" class="font-bold hover:underline">К началу</a>
+            </div>
+
+            <!-- 2.3: Изображения с пояснениями -->
+            <div class="grid md:grid-cols-2 gap-8">
+                <div id="dumbbells" class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="text-2xl font-semibold mb-3">Гантели и Штанги</h4>
+                    <img src="https://placehold.co/600x300/555/ffffff?text=Гантели+и+Штанги" alt="Гантели и штанги" class="w-full h-48 object-cover rounded-md mb-4">
+                    <p class="text-gray-600">Профессиональные обрезиненные гантели от 1 до 50 кг, а также олимпийские грифы и блины для серьезных тренировок.</p>
+                </div>
+                
+                <div id="benches" class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="text-2xl font-semibold mb-3">Скамьи и Стойки</h4>
+                    <img src="https://placehold.co/600x300/444/ffffff?text=Скамьи+и+Стойки" alt="Скамьи и стойки" class="w-full h-48 object-cover rounded-md mb-4">
+                    <p class="text-gray-600">Регулируемые скамьи для жима, скамьи Скотта и силовые рамы для безопасного выполнения приседаний и жимов.</p>
+                </div>
+            </div>
+
+            <!-- 2.5: Таблица -->
+            <h3 id="catalog-table" class="text-2xl font-bold mt-12 mb-6 page-section text-gray-800">Сравнительная таблица</h3>
+            <div class="w-full overflow-x-auto rounded-lg shadow-lg">
+                <!-- 
+                  Изображение на заднем фоне всей таблицы.
+                  Используем полупрозрачный градиент, чтобы фон не мешал тексту.
+                -->
+                <table class="w-full min-w-[600px] text-left" style="background-image: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('https://placehold.co/800x400/f0f0f0/cccccc?text=BG+Pattern'); background-size: cover;">
+                    <thead class="bg-gray-800 text-white">
+                        <tr>
+                            <th class="p-4">Название</th>
+                            <th class="p-4">Миниатюра (клик для увеличения)</th>
+                            <th class="p-4">Изображение в ячейке</th>
+                            <th class="p-4">Гиперссылка</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-300">
+                        <tr class="hover:bg-gray-100/50">
+                            <td class="p-4 font-medium">Силовая рама "Титан"</td>
+                            <td class="p-4">
+                                <!-- 2.4: Миниатюрная графическая гиперссылка (открывается в новом окне) -->
+                                <a href="https://placehold.co/600x400/111/ffffff?text=Большая+Силовая+Рама" target="_blank" title="Увеличить фото рамы 'Титан'">
+                                    <img src="https://placehold.co/100x67/111/ffffff?text=Рама+(100px)" alt="Миниатюра Силовая рама Титан" class="rounded border-2 border-gray-300" style="width: 100px;">
+                                </a>
+                            </td>
+                            <td class="p-4">
+                                <!-- Просто изображение в ячейке -->
+                                <img src="https://placehold.co/80x80/333/ffffff?text=Icon" alt="Иконка" class="rounded-full" style="width: 80px; height: 80px;">
+                            </td>
+                            <td class="p-4">
+                                <!-- Гиперссылка в ячейке -->
+                                <a href="#contact" class="text-blue-600 hover:underline">Запросить цену</a>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-100/50">
+                            <td class="p-4 font-medium">Скамья регулируемая "Профи"</td>
+                            <td class="p-4">
+                                <!-- 2.4: Миниатюрная графическая гиперссылка (открывается в новом окне) -->
+                                <a href="https://placehold.co/600x400/222/ffffff?text=Большая+Скамья" target="_blank" title="Увеличить фото скамьи 'Профи'">
+                                    <img src="https://placehold.co/100x67/222/ffffff?text=Скамья+(100px)" alt="Миниатюра Скамья Профи" class="rounded border-2 border-gray-300" style="width: 100px;">
+                                </a>
+                            </td>
+                            <td class="p-4">
+                                <!-- Просто изображение в ячейке -->
+                                <img src="https://placehold.co/80x80/555/ffffff?text=Icon" alt="Иконка" class="rounded-full" style="width: 80px; height: 80px;">
+                            </td>
+                            <td class="p-4">
+                                <!-- Гиперссылка в ячейке -->
+                                <a href="#contact" class="text-blue-600 hover:underline">Запросить цену</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- СТРАНИЦА 3: О нас -->
+        <section id="about" class="page-section">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">О нашей компании</h2>
+            <p class="text-gray-600 mb-8">Мы в GymFit верим, что качественное оборудование - это ключ к достижению любых спортивных целей. Мы работаем с 2015 года и зарекомендовали себя как надежный партнер для сотен фитнес-клубов по всей стране.</p>
+
+            <!-- 2.2: Списки -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="text-xl font-semibold mb-3">Наши Принципы (Ненумерованный)</h4>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li>Бескомпромиссное качество</li>
+                        <li>Честные цены</li>
+                        <li>Гарантийное обслуживание</li>
+                        <li>Клиент-ориентированность</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="text-xl font-semibold mb-3">Этапы Работы (Нумерованный)</h4>
+                    <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                        <li>Получение заявки и консультация</li>
+                        <li>3D-моделирование расстановки</li>
+                        <li>Подписание договора</li>
+                        <li>Доставка и сборка</li>
+                    </ol>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="text-xl font-semibold mb-3">Наши Партнеры (Вложенный)</h4>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li>Крупные фитнес-сети
+                            <ul class="list-['-_'] list-inside ml-6 mt-2">
+                                <li>WorldClass</li>
+                                <li>X-Fit</li>
+                            </ul>
+                        </li>
+                        <li>Производители
+                            <ul class="list-['-_'] list-inside ml-6 mt-2">
+                                <li>TechnoGym</li>
+                                <li>LifeFitness</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- СТРАНИЦА 4: Контакты и Формы -->
+        <section id="contact" class="page-section">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">Контакты и Обратная связь</h2>
+            <p class="text-gray-600 mb-8">Оставьте свои данные, и мы свяжемся с вами, или оформите предварительный заказ.</p>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <!-- 3.1: Форма для отправки личных контактных данных -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-4">Форма обратной связи</h3>
+                    <!-- 
+                      ВАЖНО:
+                      1. Замените 'ВАШ_ID_ФОРМЫ_ЗДЕСЬ' на ID вашей Google Формы.
+                      2. Замените 'entry.XXXXXX' на ID полей из вашей формы.
+                      3. Инструкция, как это сделать, будет в чате.
+                      4. target="_blank" остался, чтобы ответ от Google "Данные получены" открылся в новой вкладке.
+                    -->
+                    <form action="https://docs.google.com/forms/d/e/1FAIpQLSdmmA5bSRRdAu-o891hjf7t8ODE_yglERLLkd4mjqFiCmhIJg/formResponse" method="POST" target="_blank" class="space-y-4">
+                        <div>
+                            <label for="familia" class="block text-sm font-medium text-gray-700">Фамилия:</label>
+                            <!-- Пример: name="entry.1000001" -->
+                            <input type="text" id="familia" name="entry.105368393" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="imia" class="block text-sm font-medium text-gray-700">Имя:</label>
+                            <!-- Пример: name="entry.1000002" -->
+                            <input type="text" id="imia" name="entry.356878776" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="gruppa" class="block text-sm font-medium text-gray-700">Группа (необязательно):</label>
+                            <!-- Пример: name="entry.1000003" -->
+                            <input type="text" id="gruppa" name="entry.12432128" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="mobile_phone" class="block text-sm font-medium text-gray-700">Мобильный телефон:</label>
+                            <!-- Пример: name="entry.1000004" -->
+                            <input type="tel" id="mobile_phone" name="entry.761240947" required placeholder="+7 (999) 000-00-00" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Электронная почта:</label>
+                            <!-- 
+                              Примечание: Google Формы часто распознают поле email и могут дать ему специальное имя 'emailAddress' 
+                              Проверьте это в вашей предзаполненной ссылке.
+                            -->
+                            <input type="email" id="email" name="entry.1631115874" required placeholder="you@example.com" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="send_date" class="block text-sm font-medium text-gray-700">Дата отправки:</label>
+                            <!-- Пример: name="entry.1000006" -->
+                            <input type="date" id="send_date" name="entry.2102380996" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                            Отправить
+                        </button>
+                    </form>
+                </div>
+
+                <!-- 3.2: Форма для отправки оригинальных данных (Заказ) -->
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-4">Оформить предзаказ</h3>
+                    <!-- 
+                      ВАЖНО:
+                      Для этой формы НУЖНА ОТДЕЛЬНАЯ Google Форма со своими полями.
+                      Соответственно, у нее будет свой ID и свои 'entry.XXXXXX'
+                    -->
+                    <form action="https://docs.google.com/forms/d/e/1FAIpQLScz1tCgz3UtywfvQBhKg_iklgqPPTE3SUojNlX_E_bXxG-Z9A/formResponse" method="POST" target="_blank" class="space-y-4">
+                        <!-- type="text" со значением по-умолчанию -->
+                        <div>
+                            <label for="order_item" class="block text-sm font-medium text-gray-700">Товар:</label>
+                            <!-- Пример: name="entry.2000001" -->
+                            <input type="text" id="order_item" name="entry.374341124" value="Скамья регулируемая 'Профи'" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-50 focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <!-- type="number" со значением по-умолчанию -->
+                        <div>
+                            <label for="quantity" class="block text-sm font-medium text-gray-700">Количество:</label>
+                            <!-- Пример: name="entry.2000002" -->
+                            <input type="number" id="quantity" name="entry.1376261054" value="1" min="1" max="100" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <!-- type="radio" (один с checked) -->
+                        <fieldset>
+                            <legend class="block text-sm font-medium text-gray-700">Тип доставки:</legend>
+                            <div class="mt-2 space-y-2">
+                                <div class="flex items-center">
+                                    <!-- Пример: name="entry.2000003" -->
+                                    <input id="delivery_pickup" name="entry.239185771" type="radio" value="pickup" class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                                    <label for="delivery_pickup" class="ml-3 block text-sm text-gray-700">Самовывоз (бесплатно)</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="delivery_shipping" name="entry.239185771" type="radio" value="shipping" checked class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                                    <label for="delivery_shipping" class="ml-3 block text-sm text-gray-700">Доставка до адреса (1000 руб.)</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <!-- type="checkbox" (один с checked) -->
+                        <fieldset>
+                            <legend class="block text-sm font-medium text-gray-700">Дополнительные опции:</legend>
+                            <div class="mt-2 space-y-2">
+                                <div class="flex items-center">
+                                    <!-- 
+                                      Примечание: Для Checkbox в Google Формах 
+                                      часто нужно либо одно поле (тип "флажки"), либо разные поля.
+                                      Проверьте, как это будет в вашей ссылке.
+                                      Этот пример (name="entry.2000004") предполагает, что это 
+                                      поле "флажки" и в Google Таблицу придет "assembly, ext_warranty"
+                                    -->
+                                    <input id="option_assembly" name="entry.1095442951" type="checkbox" value="assembly" checked class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="option_assembly" class="ml-3 block text-sm text-gray-700">Профессиональная сборка</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="option_warranty" name="entry.1095442951" type="checkbox" value="ext_warranty" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="option_warranty" class="ml-3 block text-sm text-gray-700">Расширенная гарантия (+2 года)</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <!-- type="date" -->
+                        <div>
+                            <label for="delivery_date" class="block text-sm font-medium text-gray-700">Желаемая дата доставки:</label>
+                            <!-- Пример: name="entry.2000005" -->
+                            <input type="date" id="delivery_date" name="entry.341920302" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <!-- type="password" -->
+                        <div>
+                            <label for="promo_code" class="block text-sm font-medium text-gray-700">Промокод (если есть):</label>
+                            <!-- Пример: name="entry.2000006" -->
+                            <input type="password" id="promo_code" name="entry.746748070" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        </div>
+                        <!-- type="hidden" -->
+                        <!-- Пример: name="entry.2000007" -->
+                        <input type="hidden" name="entry.2000007" value="order-form-v1.2">
+                        
+                        <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded-md font-semibold hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                            Отправить Заказ
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Подвал сайта -->
+    <footer class="bg-gray-800 text-gray-300 mt-16 py-8 text-center">
+        <p>© 2025 GymFit. Все права защищены.</p>
+        <p class="mt-2">
+            <a href="#home" class="hover:text-white hover:underline">Вернуться наверх</a>
+        </p>
+    </footer>
+
+    <!-- 
+      JavaScript для реализации пункта 1.5 (активная ссылка в навигации)
+    -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Находим все секции и ссылки навигации
+            const sections = document.querySelectorAll('.page-section');
+            // Выбираем только ссылки в <nav>, которые ведут на якоря
+            const navLinks = document.querySelectorAll('nav a[href^="#"]');
+            
+            // Функция для обновления активной ссылки
+            const updateActiveLink = () => {
+                let currentSectionId = '';
+                
+                // Находим, какая секция сейчас на экране
+                sections.forEach(section => {
+                    // getBoundingClientRect().top - расстояние от верха экрана до секции
+                    // 100 - это небольшой отступ (offset), чтобы ссылка активировалась чуть раньше
+                    const sectionTop = section.getBoundingClientRect().top;
+                    if (sectionTop <= 100) { 
+                        currentSectionId = section.getAttribute('id');
+                    }
+                });
+
+                // Если мы в самом верху (прокрутка на 0), 'home' должен быть активным
+                if (window.scrollY === 0) {
+                     currentSectionId = 'home';
+                }
+
+                // Обновляем классы для всех ссылок
+                navLinks.forEach(link => {
+                    link.classList.remove('active-nav-link');
+                    // Добавляем класс, если href ссылки (без #) совпадает с ID текущей секции
+                    if (link.getAttribute('href') === '#' + currentSectionId) {
+                        link.classList.add('active-nav-link');
+                    }
+                });
+            };
+
+            // Вызываем функцию при прокрутке
+            window.addEventListener('scroll', updateActiveLink);
+            
+            // Вызываем функцию один раз при загрузке, чтобы подсветить 'Главная'
+            updateActiveLink();
+        });
+    </script>
+
+</body>
+</html>
