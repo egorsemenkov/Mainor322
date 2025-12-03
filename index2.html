@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IronForm Gym - Фитнес клуб</title>
+    <!-- Подключение Bootstrap 5 (CSS) для адаптивности и стилей -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Подключение иконок FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            padding-top: 70px; /* Отступ для фиксированной навигации */
+            background-color: #f8f9fa;
+        }
+        
+        /* Стили для навигации */
+        .navbar-brand i {
+            color: #d63384; /* Брендовый цвет логотипа */
+        }
+        
+        .nav-link.active {
+            font-weight: bold;
+            color: #d63384 !important;
+            border-bottom: 2px solid #d63384;
+        }
+
+        /* Скрытие секций для SPA-эффекта */
+        section {
+            display: none; /* По умолчанию все скрыто */
+            animation: fadeIn 0.5s;
+        }
+        
+        section.active-section {
+            display: block; /* Показываем только активную */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Стили для изображений с подписями */
+        figure {
+            border: 1px solid #ddd;
+            padding: 5px;
+            background: white;
+            border-radius: 5px;
+        }
+        figcaption {
+            text-align: center;
+            padding: 10px;
+            font-style: italic;
+            color: #555;
+            background-color: #f1f1f1;
+        }
+
+        /* Кнопка "Наверх" */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Единая навигационная часть -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <!-- Графическая + Текстовая ссылка (Логотип) -->
+            <a class="navbar-brand" href="#" onclick="navigateTo('home')">
+                <i class="fa-solid fa-dumbbell fa-lg"></i> IronForm Gym
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" id="nav-home" onclick="navigateTo('home')">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="nav-about" onclick="navigateTo('about')">О клубе</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="nav-shop" onclick="navigateTo('shop')">Абонементы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="nav-contact" onclick="navigateTo('contact')">Запись</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4 mb-5">
+        
+        <!-- Секция: ГЛАВНАЯ -->
+        <section id="home" class="active-section">
+            <div class="p-5 mb-4 bg-light rounded-3 border shadow-sm">
+                <div class="container-fluid py-5">
+                    <h1 class="display-5 fw-bold">Добро пожаловать в IronForm</h1>
+                    <p class="col-md-8 fs-4">Создайте тело своей мечты вместе с нами. Современные тренажеры, профессиональные тренеры и атмосфера успеха.</p>
+                    <button class="btn btn-primary btn-lg" type="button" onclick="navigateTo('contact')">Записаться сейчас</button>
+                </div>
+            </div>
+            
+            <div class="row align-items-md-stretch">
+                <div class="col-md-6">
+                    <div class="h-100 p-5 text-white bg-dark rounded-3">
+                        <h2>Групповые занятия</h2>
+                        <p>Йога, кроссфит, пилатес и многое другое. Расписание гибкое.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="h-100 p-5 bg-light border rounded-3">
+                        <h2>Персональный тренинг</h2>
+                        <p>Индивидуальный подход к вашим целям и физиологии.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Секция: О КЛУБЕ (Информационная страница с внутренней навигацией) -->
+        <section id="about">
+            <h2 class="text-center mb-4">Информация о нашем клубе</h2>
+            
+            <!-- Внутренняя навигация (Закладки) -->
+            <div class="card mb-4">
+                <div class="card-body d-flex justify-content-center gap-3">
+                    <a href="#history" class="btn btn-outline-secondary btn-sm">История (Раздел 1)</a>
+                    <a href="#zones" class="btn btn-outline-secondary btn-sm">Зоны клуба (Раздел 2)</a>
+                    <a href="#rules" class="btn btn-outline-secondary btn-sm">Правила (Раздел 3)</a>
+                </div>
+            </div>
+
+            <!-- Раздел 1 -->
+            <div id="history" class="mb-5 pt-5"> <!-- pt-5 для отступа при скролле -->
+                <h3><i class="fa-solid fa-clock-rotate-left"></i> История клуба</h3>
+                <p>Наш клуб был основан в 2010 году группой энтузиастов бодибилдинга. С тех пор мы выросли из подвального помещения в современный фитнес-центр премиум класса.</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <figure>
+                            <!-- Используем плейсхолдер для картинки -->
+                            <img src="https://i.ytimg.com/vi/9qo_QwTdeN0/maxresdefault.jpg" class="img-fluid rounded" alt="Описание">
+                            <figcaption>Наш первый зал в 2010 году. Минимум оборудования, максимум энтузиазма.</figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-md-6">
+                         <figure>
+                            <img src="https://i.ytimg.com/vi/JUgzci93e0I/maxresdefault.jpg" class="img-fluid rounded" alt="Описание">>
+                            <figcaption>Современное состояние. Более 500 кв.м. рабочей площади.</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Раздел 2 -->
+            <div id="zones" class="mb-5 pt-5">
+                <h3><i class="fa-solid fa-layer-group"></i> Тренировочные зоны</h3>
+                <p>Мы разделили пространство на несколько ключевых зон для вашего удобства:</p>
+                <ul>
+                    <li>Кардио-зона (беговые дорожки, эллипсы)</li>
+                    <li>Зона свободных весов (гантели до 60кг)</li>
+                    <li>Зона кроссфита</li>
+                </ul>
+                <figure class="w-100">
+                    <img src="https://s3.objstor.cloud4u.com/unti-prod-people/file/presentation/project/r3p912l9pp.jpg" class="img-fluid rounded" alt="Описание">>
+                    <figcaption>План-схема первого этажа спортивного комплекса.</figcaption>
+                </figure>
+            </div>
+
+            <hr>
+
+            <!-- Раздел 3 -->
+            <div id="rules" class="mb-5 pt-5">
+                <h3><i class="fa-solid fa-book"></i> Правила посещения</h3>
+                <p>Уважайте других посетителей. Всегда разбирайте снаряды после упражнения. Используйте полотенце. Вход только в сменной обуви.</p>
+            </div>
+
+            <!-- Кнопка "Вверх" внутри страницы -->
+            <div class="text-center">
+                <a href="#about" class="btn btn-secondary">В начало страницы</a>
+            </div>
+        </section>
+
+        <!-- Секция: АБОНЕМЕНТЫ (Генерация контента через JS) -->
+        <section id="shop">
+            <h2 class="text-center mb-4">Наши абонементы</h2>
+            <p class="text-center text-muted mb-5">Выберите подходящий тариф. Данный блок сгенерирован автоматически с помощью JavaScript (цикл).</p>
+            
+            <!-- Контейнер, куда JS добавит карточки -->
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="shop-container">
+                <!-- Сюда вставятся блоки -->
+            </div>
+        </section>
+
+        <!-- Секция: ЗАПИСЬ (Форма) -->
+        <section id="contact">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow">
+                        <div class="card-header bg-primary text-white">
+                            <h3 class="mb-0"><i class="fa-solid fa-paper-plane"></i> Заявка на тренировку</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted">Форма настроена на отправку в Google Forms. <br> <span class="text-danger fw-bold">
+                            
+                            <!-- 
+                                ЛОГИКА ОТПРАВКИ В GOOGLE FORM БЕЗ ПЕРЕЗАГРУЗКИ:
+                                1. Переменная submitted=false
+                                2. При submit формы ставим submitted=true
+                                3. Target формы указывает на скрытый iframe
+                                4. Когда iframe загружается (onload), если submitted=true, показываем alert
+                            -->
+                            <script type="text/javascript">var submitted=false;</script>
+                            
+                            
+                            <!-- ЗАМЕНИТЕ action="" НА ССЫЛКУ ИЗ ВАШЕЙ GOOGLE ФОРМЫ (она заканчивается на /formResponse) -->
+                            <form id="googleForm" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLScKfvPLHTl2me7bZk-AdWnTEgHD0zUC5jWwameWv-8mMqegjQ/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+                                
+                                <!-- Текстовое поле -->
+                                <div class="mb-3">
+                                    <label for="clientName" class="form-label">Ваше Имя (Text)</label>
+                                    <!-- ЗАМЕНИТЕ name="entry.111111" НА REAL ID ИЗ GOOGLE FORM -->
+                                    <input type="text" class="form-control" id="clientName" name="entry.2055774655" placeholder="Иван Иванов" required>
+                                </div>
+
+                                <!-- Числовое поле -->
+                                <div class="mb-3">
+                                    <label for="clientAge" class="form-label">Ваш возраст (Number)</label>
+                                    <!-- ЗАМЕНИТЕ name="entry.222222" НА REAL ID ИЗ GOOGLE FORM -->
+                                    <input type="number" class="form-control" id="clientAge" name="entry.1654327589" min="16" max="99" value="18" required>
+                                    <div class="form-text">Мы работаем с клиентами от 16 лет.</div>
+                                </div>
+
+                                <!-- Радио кнопки -->
+                                <div class="mb-3">
+                                    <label class="form-label d-block">Цель тренировок (Radio):</label>
+                                    <!-- У ВСЕХ RADIO ОДИНАКОВЫЙ name="entry.333333" -->
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="entry.1278283132 id="goal1" value="Набор массы" checked>
+                                        <label class="form-check-label" for="goal1">Набор массы</label>
+                                    </div>
+                                    
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="entry.1278283132" id="goal2" value="Похудение">
+                                        <label class="form-check-label" for="goal2">Похудение</label>
+                                    </div>
+                                    
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="entry.1278283132" id="goal3" value="Здоровье">
+                                        <label class="form-check-label" for="goal3">Здоровье</label>
+                                    </div>
+                                </div>
+
+                                <!-- Комментарий -->
+                                <div class="mb-3">
+                                    <label for="comment" class="form-label">Комментарий</label>
+                                    <!-- ЗАМЕНИТЕ name="entry.444444" НА REAL ID ИЗ GOOGLE FORM -->
+                                    <textarea class="form-control" id="comment" name="entry.316030784" rows="3">Хочу записаться на пробное.</textarea>
+                                </div>
+
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-success btn-lg">Отправить заявку</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="text-center text-lg-start bg-dark text-white pt-4 pb-2">
+        <div class="container text-center">
+            <p>© 2023 IronForm Gym. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <!-- Кнопка глобального скролла наверх -->
+    <button onclick="scrollToTop()" id="btnBackToTop" class="btn btn-danger back-to-top" title="Наверх">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Подключение Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Основной скрипт сайта -->
+    <script>
+        // --- 1. Логика навигации (SPA) ---
+        function navigateTo(sectionId) {
+            // Скрыть все секции
+            document.querySelectorAll('section').forEach(sec => {
+                sec.classList.remove('active-section');
+            });
+            
+            // Показать нужную
+            const target = document.getElementById(sectionId);
+            if(target) {
+                target.classList.add('active-section');
+            }
+
+            // Обновить состояние меню (удалить active у всех, добавить нажатому)
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.getElementById('nav-' + sectionId).classList.add('active');
+
+            // Скролл вверх при смене "страницы"
+            window.scrollTo(0, 0);
+
+            // Закрыть мобильное меню после клика (если открыто)
+            const navbarCollapse = document.getElementById('navbarNav');
+            if (navbarCollapse.classList.contains('show')) {
+                new bootstrap.Collapse(navbarCollapse).hide();
+            }
+        }
+
+        // --- 2. Генерация повторяющегося контента (Магазин) ---
+        const shopData = [
+            { title: "Утренний", price: "1500р", desc: "Доступ с 7:00 до 12:00", color: "primary" },
+            { title: "Дневной", price: "2000р", desc: "Доступ с 12:00 до 17:00", color: "info" },
+            { title: "Вечерний", price: "2500р", desc: "Доступ с 17:00 до 23:00", color: "warning" },
+            { title: "Студент", price: "1800р", desc: "По студенческому билету", color: "success" },
+            { title: "Безлимит", price: "3500р", desc: "Полный доступ 24/7", color: "danger" },
+            { title: "Тренер+", price: "5000р", desc: "10 занятий с тренером", color: "dark" },
+            { title: "Выходной", price: "1200р", desc: "Только сб и вс", color: "secondary" },
+            { title: "Годовой", price: "25000р", desc: "Заморозка на 30 дней", color: "primary" },
+            { title: "Полгода", price: "14000р", desc: "Заморозка на 14 дней", color: "info" }
+        ];
+
+        const container = document.getElementById('shop-container');
+
+        // Цикл для генерации 9 блоков (6-12 повторений по заданию)
+        shopData.forEach((item, index) => {
+            const html = `
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-${item.color}">
+                        <div class="card-header bg-${item.color} text-white">
+                            Абонемент #${index + 1}
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">${item.title}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">${item.price}</h6>
+                            <p class="card-text">${item.desc}</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0">
+                            <button class="btn btn-outline-${item.color} w-100" onclick="alert('Выбран: ${item.title}')">Выбрать</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += html;
+        });
+
+        // --- 3. Кнопка "Наверх" ---
+        window.onscroll = function() {
+            const btn = document.getElementById("btnBackToTop");
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>
